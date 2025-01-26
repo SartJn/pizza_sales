@@ -1,14 +1,14 @@
-#Q1 Retrieve the total number of orders placed.
+--Q1 Retrieve the total number of orders placed.
 SELECT count(id)
 FROM orders;
 
-#Q2 Calculate the total revenue generated from pizza sales.
+--Q2 Calculate the total revenue generated from pizza sales.
 SELECT round(sum(od.quantity * p.price),2)
 FROM order_details od
 JOIN pizzas p
 ON od.pizza_id = p.pizza_id;
 
-#Q3 Identify the highest-priced pizza.
+--Q3 Identify the highest-priced pizza.
 SELECT pt.name, p.price
 FROM pizzas p
 JOIN pizza_types pt
@@ -16,10 +16,22 @@ ON p.type_id = pt.type_id
 ORDER BY 2 DESC
 LIMIT 1;
 
-#Q4 Identify the most common pizza size ordered.
+--Q4 Identify the most common pizza size ordered.
 SELECT p.size, count(p.size)
 FROM pizzas p
 JOIN order_details od
 ON p.pizza_id = od.pizza_id
 GROUP BY 1
-ORDER BY 2 DESC;
+ORDER BY 2 DESC
+LIMIT 1;
+
+--Q5 List the top 5 most ordered pizza types along with their quantities.
+SELECT pt.name, sum(od.quantity)
+FROM pizzas p
+JOIN order_details od
+ON p.pizza_id = od.pizza_id
+JOIN pizza_types pt
+ON pt.type_id = p.type_id
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 5;
