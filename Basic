@@ -1,3 +1,11 @@
 #Q1 Retrieve the total number of orders placed.
 SELECT count(id)
 FROM orders;
+
+#Q2 Calculate the total revenue generated from pizza sales.
+SELECT round(sum(od.quantity * p.price),2)
+FROM order_details od
+JOIN pizzas p
+ON od.pizza_id = p.pizza_id;
+
+#Q3
